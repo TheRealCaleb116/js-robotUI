@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+<title="Test Implimentation of RobotPyUi">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+  <h1>Test Implementation of RobotPyUI</h1>
+
+  <div id="Test">hi</div>
+
+  <div id="bob">This Is a toggleable Element</div>
+
+  <div id="meter1">this is a meter without its insides replaced</div>
+
+
+  <script src="/networktables/networktables.js"></script>
+
+  <script src="Js-RobotUi.js"></script>
+
+
+  <script>
+  //set network Table Name
+  Set_NT_Name("SmartDashboard");
+
+
+  //Declaring are toggle Element
+  DeclareToggleElement("bob","bob","TOG","Hidden");
+  DeclareStraightMeter("meter",  "meter1",  "MEET", true, 0, 100, 50, 60, 85, 75 );
+
+  </script>
+</body/>
