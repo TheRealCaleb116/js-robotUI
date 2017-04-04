@@ -4,8 +4,8 @@ JavaScript-RobotUi is javascript library for easy declaration of widgets that ti
 
 
 ### Features
-*Meters
-*Toggleable Elements
-*Gauges
-*Color Based Proximity Bars
-*And More...
+* Meters
+* Toggleable Elements
+* Gauges
+* Color Based Proximity Bars
+* And More...
