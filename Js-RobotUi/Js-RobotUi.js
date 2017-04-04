@@ -97,7 +97,9 @@ function DeclareToggleElement( Name,  Id,  NetKey, State){
   }
 }
 
-function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tValue, tGood , tLow , tHigh  ){
+function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tValue, tGood , tLow , tHigh, tMeterStyleId, tTextStyleId,tCustomText  ){
+  //fix the way the text and meter styles work so that it works without crappy styling system
+
   this.Name = tName;
   this.Id = tId;
   this.NetKey = tNetKey;
@@ -113,28 +115,39 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
   this.Low = tLow;
   this.High = tHigh;
 
+  //style id handlers
+  this.MeterId = tMeterStyleId;
+  this.TextId = tTextStyleId;
+
+  this.CustomString = tCustomText;
   this.Update = function(){
 
-    document.getElementById(this.Id).innerHTML = "<meter low=" +this.Low+ " high=" +this.High+ " optimum=" +this.Good+ " min=" +this.Min+ " max=" +this.Max+ " value="+tValue+" ></meter>";
-    document.getElementById(this.Id).style.transform = "rotate(-90deg)";
+    document.getElementById(this.Id).innerHTML = "<meter low=" +this.Low+ " high=" +this.High+ " optimum=" +this.Good+ " min=" +this.Min+ " max=" +this.Max+ " value="+this.Value+" id="+this.MeterId+" ></meter> <div id = "+this.TextId+"> "+this.CustomString+" "+this.Value+ "</div> ";
 
+    if (this.Orientation == true){
+      //if orientation is then it means that they want the bar verticle
+      document.getElementById(this.Id).style.transform = "rotate(-90deg)";
+      //correct the rotation of the text
+      document.getElementById(this.TextId).style.transform = "rotate(90deg)";
+    }
   }
 
   //functions
 
   this.Handle = function(value, isNew){
     //handle
-
+    this.Value = value;
+    this.Update();
 
   }
 
 }
 
-function DeclareStraightMeter(Name,  Id,  NetKey, Orientation, Min, Max, Value, Good, Low, High ){
+function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, Value, Good, Low, High, MeterStyleId = "", TextStyleId = "",CustomText = "Value:"){
 
 
   //declare a new object
-  var TempObj = new StraightMeterObject(Name,  Id,  NetKey, Orientation, Min, Max, Value, Good, Low, High );
+  var TempObj = new StraightMeterObject(Name,  Id,  NetKey, Orientation, Min, Max, Value, Good, Low, High, MeterStyleId,TextStyleId,CustomText);
   index[Name] = TempObj; //adds to index of elements
   TempObj.Update();
 
