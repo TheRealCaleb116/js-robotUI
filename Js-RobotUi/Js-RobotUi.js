@@ -129,6 +129,12 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
       document.getElementById(this.Id).style.transform = "rotate(-90deg)";
       //correct the rotation of the text
       document.getElementById(this.TextId).style.transform = "rotate(90deg)";
+
+      //Set Default styles
+
+    }else{
+      //Set default styles
+
     }
   }
 
