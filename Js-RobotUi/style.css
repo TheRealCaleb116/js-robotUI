@@ -2,22 +2,9 @@ h1{
   align-self: center;
   color: blue;
   margin: auto;
-
-}
-#john{ /*The Bar*/
-  width: 350px;
-  height: 50px;
-}
-#johnny{/*the text*/
-  /*Default Styles for text For Horizontal bar*/
-  position: relative;
-  font-size: 23;
   text-align: center;
-  top: -40px;
-  left: -55%;
-
-
 }
+
 #meter1{/*the div*/
   position: fixed;
 

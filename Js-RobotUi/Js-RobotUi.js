@@ -98,7 +98,6 @@ function DeclareToggleElement( Name,  Id,  NetKey, State){
 }
 
 function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tValue, tGood , tLow , tHigh, tMeterStyleId, tTextStyleId,tCustomText  ){
-  //fix the way the text and meter styles work so that it works without crappy styling system
 
   this.Name = tName;
   this.Id = tId;
@@ -120,9 +119,17 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
   this.TextId = tTextStyleId;
 
   this.CustomString = tCustomText;
+
+
   this.Update = function(){
 
+    //Meter
     document.getElementById(this.Id).innerHTML = "<meter low=" +this.Low+ " high=" +this.High+ " optimum=" +this.Good+ " min=" +this.Min+ " max=" +this.Max+ " value="+this.Value+" id="+this.MeterId+" ></meter> <div id = "+this.TextId+"> "+this.CustomString+" "+this.Value+ "</div> ";
+
+    //Default Bar styling
+    document.getElementById(this.MeterId).style.width = "350px";
+    document.getElementById(this.MeterId).style.height = "50px";
+
 
     if (this.Orientation == true){
       //if orientation is then it means that they want the bar verticle
@@ -131,10 +138,17 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
       document.getElementById(this.TextId).style.transform = "rotate(90deg)";
 
       //Set Default styles
+      document.getElementById(this.TextId).style.position = "relative";
+      document.getElementById(this.TextId).style.fontSize = 23;
+      document.getElementById(this.TextId).style.textAlign = "center";
+      document.getElementById(this.TextId).style.top = "-33px";
+      document.getElementById(this.TextId).style.left = "-55%";
 
     }else{
       //Set default styles
-
+      document.getElementById(this.TextId).style.position = "relative";
+      document.getElementById(this.TextId).style.fontSize = "23";
+      document.getElementById(this.TextId).style.textAlign = "center";
     }
   }
 
@@ -149,7 +163,7 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
 
 }
 
-function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, Value, Good, Low, High, MeterStyleId = "", TextStyleId = "",CustomText = "Value:"){
+function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, Value, Good, Low, High, MeterStyleId , TextStyleId ,CustomText = "Value:"){
 
 
   //declare a new object
