@@ -165,7 +165,56 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
 
 function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, Value, Good, Low, High, MeterStyleId , TextStyleId ,CustomText = "Value:"){
 
+  try{
+    //check name
+    /*if (Name == null || index.hasOwnProperty(Name) || typeof Name != 'string'){
+      //has name already registered
+      throw "Error, /'" + Name + "/' Already Is registered, Learn How To Use My API!";
+    }*/
 
+    //Checks for Name
+    if (name == null){
+      //name is null
+      throw "Error, Name is set to null, It should be a string."
+    }else if(index.hasOwnProperty(Name)){
+      //Name Already Registered
+      throw "Error, '" + Name + "' Already Is registered, Learn How To Use My API!";
+    }else if (typeof Name != 'string'){
+      //Name not string
+      throw "Error, Name is not a string, It should be a STRING!"
+    }
+
+    //Check Id
+    if (Id == null){
+      throw "Error, Id is set to null, It should be a string."
+
+    }else if (typeof Id != 'string'){
+      throw "Error, Id is not a string, It should be a STRING!"
+
+    }
+
+    //Check NetKey
+    if (name == null){
+      //name is null
+      throw "Error, NetKey is set to null, It should be a string."
+    }else if (typeof Name != 'string'){
+      //Name not string
+      throw "Error, NetKey is not a string, It should be a STRING!"
+    }
+
+    //Check Orientation
+    if (Orientation == null){
+
+      throw "Error, orientation is set to null, It should be a Boolean."
+
+    }else if (typeof Orientation != 'boolean'){
+      throw "Error, Orientation is not a Boolean, It should be a Boolean!"
+    }
+    //need to add handler for the rest of the varibles and possibly add handeling for min max good
+  }catch(err){
+    //throw the Error
+    window.alert(err);
+  }
   //declare a new object
   var TempObj = new StraightMeterObject(Name,  Id,  NetKey, Orientation, Min, Max, Value, Good, Low, High, MeterStyleId,TextStyleId,CustomText);
   index[Name] = TempObj; //adds to index of elements
