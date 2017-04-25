@@ -64,7 +64,7 @@ function ToggleElement(tName,  tId,  tNetKey, tState){
   this.Handle = function(value, isNew){
     //Handle
     //Toggle the state of the element
-    toggle();
+    this.toggle();
 
   }
 }
@@ -76,7 +76,7 @@ function DeclareToggleElement( Name,  Id,  NetKey, State){
   try{
     if (Name == null || index.hasOwnProperty(Name) || typeof Name != 'string'){
       //has name already registered
-      throw "Error, /'" + Name + "/' Already Is registered, Learn How To Use My API!";
+      throw "Huston We Have A Problem. You Did Something Wrong!";
     }
   }catch(err){
     //throw the Error
@@ -166,12 +166,6 @@ function StraightMeterObject(tName,  tId,  tNetKey, tOrientation, tMin, tMax, tV
 function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, Value, Good, Low, High, MeterStyleId , TextStyleId ,CustomText = "Value:"){
 
   try{
-    //check name
-    /*if (Name == null || index.hasOwnProperty(Name) || typeof Name != 'string'){
-      //has name already registered
-      throw "Error, /'" + Name + "/' Already Is registered, Learn How To Use My API!";
-    }*/
-
     //Checks for Name
     if (name == null){
       //name is null
@@ -210,6 +204,8 @@ function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, 
     }else if (typeof Orientation != 'boolean'){
       throw "Error, Orientation is not a Boolean, It should be a Boolean!"
     }
+
+
     //need to add handler for the rest of the varibles and possibly add handeling for min max good
   }catch(err){
     //throw the Error
@@ -218,6 +214,60 @@ function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, 
   //declare a new object
   var TempObj = new StraightMeterObject(Name,  Id,  NetKey, Orientation, Min, Max, Value, Good, Low, High, MeterStyleId,TextStyleId,CustomText);
   index[Name] = TempObj; //adds to index of elements
+  TempObj.Update();
+
+}
+
+function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighColor, tStartingColor, tBarStyle){
+  //Set Basic Vars To Instance Of Object
+  this.Name = tName;
+  this.Id =  tId;
+  this.NetKey = tNetKey;
+
+  //Object Specific varibles
+  this.Width = tWidth;
+  this.Height = tHeight;
+
+  //arrays of intagers r,g,b
+  this.LowColor = tLowColor;
+  this.HighColor = tHighColor;
+  this.StartingColor = tStartingColor;
+
+  //string
+  this.BarStyle = tBarStyle;
+
+  //Color arrays
+  this.LowColor = [0,0,0];
+  this.currentColor = [0,0,0];
+  this.HighColor = [0,0,0];
+
+  this.Update = function (){
+    ///Update the bars color based on updated value
+
+
+  }
+  this.Handle = function(Vaule, isNew){
+    this.Update();
+
+  }
+}
+
+function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingColor, BarStyle){
+
+  //Test if the name is unique.
+  try{
+    if (Name == null || index.hasOwnProperty(Name) || typeof Name != 'string'){
+      //has name already registered
+      throw "Huston We Have A Problem. You Did Something Wrong!";
+    }
+  }catch(err){
+    //throw the Error
+    window.alert(err);
+  }
+
+  var TempObj = new ProximityBar(Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingColor, BarStyle);
+  index[Name] = TempObj;
+  //Update To Default
   TempObj.Update();
 
 }
