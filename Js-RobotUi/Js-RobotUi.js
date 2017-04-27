@@ -218,7 +218,7 @@ function DeclareStraightMeter(Name,  Id,  NetKey, Orientation = true, Min, Max, 
 
 }
 
-function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighColor, tStartingColor, tBarStyle){
+function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighColor, tStartingValue, tBarStyle){
   //Set Basic Vars To Instance Of Object
   this.Name = tName;
   this.Id =  tId;
@@ -231,19 +231,26 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
   //arrays of intagers r,g,b
   this.LowColor = tLowColor;
   this.HighColor = tHighColor;
-  this.StartingColor = tStartingColor;
 
-  //string
-  this.BarStyle = tBarStyle;
+  //value 0 to 100 - float
+  this.CurrentValue = tStartingValue;
 
-  //Color arrays
+
+  //Color arrays -255 Highest Value
   this.LowColor = [0,0,0];
   this.currentColor = [0,0,0];
   this.HighColor = [0,0,0];
 
   this.Update = function (){
-    ///Update the bars color based on updated value
+    //Update the bars color based on updated value
 
+
+  }
+  this.Test = function(){
+    //Init called once
+    document.getElementById(this.Id).style.width = this.Width + "px";
+    document.getElementById(this.Id).style.height = this.Height + "px";
+    document.getElementById(this.Id).style.backgroundColor = "rgb(" +this.currentColor[0].toString()+"," +this.currentColor[1].toString()+ "," + this.currentColor[2].toString() + ")";
 
   }
   this.Handle = function(Vaule, isNew){
@@ -252,7 +259,7 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
   }
 }
 
-function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingColor, BarStyle){
+function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingValue){
 
   //Test if the name is unique.
   try{
@@ -265,9 +272,9 @@ function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighCol
     window.alert(err);
   }
 
-  var TempObj = new ProximityBar(Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingColor, BarStyle);
+  var TempObj = new ProximityBar(Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingValue);
   index[Name] = TempObj;
   //Update To Default
-  TempObj.Update();
+  TempObj.Test();
 
 }
