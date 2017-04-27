@@ -17,9 +17,8 @@ h1{
 
 #bar{
   position: fixed;
-  height: 30px;
-/*  width: 400px;*/
-  background-color: Green;
-
-
+/*height: 30px;
+  width: 400px;*/
+/*  background-color: rgb(255,0,0);
+*/
 }

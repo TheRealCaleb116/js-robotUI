@@ -248,8 +248,10 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
   }
   this.Test = function(){
     //Init called once
+    document.getElementById(this.Id).style.width = this.Width + "px";
+    document.getElementById(this.Id).style.height = this.Height + "px";
+    document.getElementById(this.Id).style.backgroundColor = "rgb(" +this.currentColor[0].toString()+"," +this.currentColor[1].toString()+ "," + this.currentColor[2].toString() + ")";
 
-    document.getElementById(this.Id).style.Width = this.Width + "px";
   }
   this.Handle = function(Vaule, isNew){
     this.Update();
