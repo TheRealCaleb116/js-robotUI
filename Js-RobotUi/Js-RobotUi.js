@@ -228,26 +228,35 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
   this.Width = tWidth;
   this.Height = tHeight;
 
-  //arrays of intagers r,g,b
-  this.LowColor = tLowColor;
-  this.HighColor = tHighColor;
 
   //value 0 to 100 - float
   this.CurrentValue = tStartingValue;
 
+  //IncrementalValues
+  this.incrementValueR = 0;
+  this.incrementValueG = 0;
+  this.incrementValueB = 0;
 
   //Color arrays -255 Highest Value
-  this.LowColor = [0,0,0];
+  this.LowColor = [0,255,0];
   this.currentColor = [0,0,0];
-  this.HighColor = [0,0,0];
+  this.HighColor = [255,0,0];
 
   this.Update = function (){
     //Update the bars color based on updated value
 
 
   }
-  this.Test = function(){
+  this.Draw = function(){
     //Init called once
+    this.incrementValueR = Math.abs((this.HighColor[0] - this.LowColor[0]) / 100);
+    this.incrementValueG = Math.abs((this.HighColor[1] - this.LowColor[1]) / 100);
+    this.incrementValueB = Math.abs((this.HighColor[2] - this.LowColor[2]) / 100);
+
+    //alert(((2 - 1) * (2 - 1)) / 2 );
+    this.currentColor= [Math.round(this.incrementValueR * this.CurrentValue),Math.round(this.incrementValueG * this.CurrentValue),Math.round(this.incrementValueB * this.CurrentValue)]
+  //  this.currentColor[0] = Math.round(this.incrementValue * this.CurrentValue);
+
     document.getElementById(this.Id).style.width = this.Width + "px";
     document.getElementById(this.Id).style.height = this.Height + "px";
     document.getElementById(this.Id).style.backgroundColor = "rgb(" +this.currentColor[0].toString()+"," +this.currentColor[1].toString()+ "," + this.currentColor[2].toString() + ")";
@@ -275,6 +284,6 @@ function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighCol
   var TempObj = new ProximityBar(Name, Id, NetKey, Width, Height, LowColor, HighColor, StartingValue);
   index[Name] = TempObj;
   //Update To Default
-  TempObj.Test();
+  TempObj.Draw();
 
 }
