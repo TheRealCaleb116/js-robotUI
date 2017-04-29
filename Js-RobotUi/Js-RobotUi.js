@@ -237,33 +237,68 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
   this.incrementValueG = 0;
   this.incrementValueB = 0;
 
-  //Color arrays -255 Highest Value
-  this.LowColor = [0,255,0];
+  //Color arrays - 255 Highest Value
+  this.LowColor = tLowColor;
   this.currentColor = [0,0,0];
-  this.HighColor = [255,0,0];
-
-  this.Update = function (){
-    //Update the bars color based on updated value
+  this.HighColor = tHighColor;
 
 
-  }
   this.Draw = function(){
-    //Init called once
-    this.incrementValueR = Math.abs((this.HighColor[0] - this.LowColor[0]) / 100);
-    this.incrementValueG = Math.abs((this.HighColor[1] - this.LowColor[1]) / 100);
-    this.incrementValueB = Math.abs((this.HighColor[2] - this.LowColor[2]) / 100);
-
-    //alert(((2 - 1) * (2 - 1)) / 2 );
-    this.currentColor= [Math.round(this.incrementValueR * this.CurrentValue),Math.round(this.incrementValueG * this.CurrentValue),Math.round(this.incrementValueB * this.CurrentValue)]
-  //  this.currentColor[0] = Math.round(this.incrementValue * this.CurrentValue);
-
+	  
+	//get increments based on the difference between the colors
+    this.incrementValueR = ((this.HighColor[0] - this.LowColor[0]) / 100);
+    this.incrementValueG = ((this.HighColor[1] - this.LowColor[1]) / 100);
+    this.incrementValueB = ((this.HighColor[2] - this.LowColor[2]) / 100);
+	
+	  
+	//Increment - Decrement
+	  
+	//R
+	if(this.HighColor[0] > this.LowColor[0]){
+		this.currentColor[0] = Math.round(this.incrementValueR * this.CurrentValue);
+		//alert(this.CurrentValue);
+	}else if(this.HighColor[0] == this.LowColor[0]){
+		this.currentColor[0] = this.HighColor[0];
+	}
+	else{
+		this.currentColor[0] = Math.round(Math.abs(this.HighColor[0] - this.LowColor[0]) + this.incrementValueR * this.CurrentValue);
+	}
+	  
+	  
+	//G
+	if(this.HighColor[1] > this.LowColor[1]){
+		this.currentColor[1] = Math.round(this.incrementValueG * this.CurrentValue);
+	}else if(this.HighColor[1] == this.LowColor[1]){
+		this.currentColor[1] = this.HighColor[1];
+	}
+	else{
+		this.currentColor[1] = Math.round(Math.abs(this.HighColor[1] - this.LowColor[1]) + this.incrementValueG * this.CurrentValue);
+		//alert(this.currentColor[1]);
+	}
+	  
+	  
+	//B
+	if(this.HighColor[2] > this.LowColor[2]){
+		this.currentColor[2] = Math.round(this.incrementValueB * this.CurrentValue);
+	}else if(this.HighColor[2] == this.LowColor[2]){
+		this.currentColor[2] = this.HighColor[2];
+	}
+	else{
+		this.currentColor[2] = Math.round(Math.abs(this.HighColor[2] - this.LowColor[2]) + this.incrementValueB * this.CurrentValue);
+	}	  	  
+    //alert(this.currentColor);
+	
+	  
+	//set styles
     document.getElementById(this.Id).style.width = this.Width + "px";
     document.getElementById(this.Id).style.height = this.Height + "px";
     document.getElementById(this.Id).style.backgroundColor = "rgb(" +this.currentColor[0].toString()+"," +this.currentColor[1].toString()+ "," + this.currentColor[2].toString() + ")";
 
   }
-  this.Handle = function(Vaule, isNew){
-    this.Update();
+  
+  this.Handle = function(Value, isNew){
+	this.CurrentValue = Value;
+    this.Draw();
 
   }
 }
