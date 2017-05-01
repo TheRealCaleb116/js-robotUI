@@ -253,7 +253,6 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
     this.incrementValueG = Math.abs((this.HighColor[1] - this.LowColor[1]) / 100);
     this.incrementValueB = Math.abs((this.HighColor[2] - this.LowColor[2]) / 100);
 
-    //alert(((2 - 1) * (2 - 1)) / 2 );
     this.currentColor= [Math.round(this.incrementValueR * this.CurrentValue),Math.round(this.incrementValueG * this.CurrentValue),Math.round(this.incrementValueB * this.CurrentValue)]
   //  this.currentColor[0] = Math.round(this.incrementValue * this.CurrentValue);
 
