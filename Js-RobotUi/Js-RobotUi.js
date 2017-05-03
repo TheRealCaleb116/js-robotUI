@@ -7,6 +7,21 @@
 
 //Need to decide how i want to handle the listener
 
+//Import Gauge Script and Raph script
+
+//Raph
+var imported = document.createElement('script');
+imported.src = '/lib/raphael-2.1.4.min';
+document.head.appendChild(imported);
+//Gauge
+var imported = document.createElement('script');
+imported.src = '/lib/justgage.js';
+document.head.appendChild(imported);
+
+
+
+
+
 NetworkTableName = null;
 var index = {};
 
@@ -244,15 +259,15 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
 
 
   this.Draw = function(){
-	  
+
 	//get increments based on the difference between the colors
     this.incrementValueR = ((this.HighColor[0] - this.LowColor[0]) / 100);
     this.incrementValueG = ((this.HighColor[1] - this.LowColor[1]) / 100);
     this.incrementValueB = ((this.HighColor[2] - this.LowColor[2]) / 100);
-	
-	  
+
+
 	//Increment - Decrement
-	  
+
 	//R
 	if(this.HighColor[0] > this.LowColor[0]){
 		this.currentColor[0] = Math.round(this.incrementValueR * this.CurrentValue);
@@ -263,8 +278,8 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
 	else{
 		this.currentColor[0] = Math.round(Math.abs(this.HighColor[0] - this.LowColor[0]) + this.incrementValueR * this.CurrentValue);
 	}
-	  
-	  
+
+
 	//G
 	if(this.HighColor[1] > this.LowColor[1]){
 		this.currentColor[1] = Math.round(this.incrementValueG * this.CurrentValue);
@@ -275,8 +290,8 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
 		this.currentColor[1] = Math.round(Math.abs(this.HighColor[1] - this.LowColor[1]) + this.incrementValueG * this.CurrentValue);
 		//alert(this.currentColor[1]);
 	}
-	  
-	  
+
+
 	//B
 	if(this.HighColor[2] > this.LowColor[2]){
 		this.currentColor[2] = Math.round(this.incrementValueB * this.CurrentValue);
@@ -285,17 +300,17 @@ function ProximityBar (tName, tId, tNetKey, tWidth, tHeight, tLowColor, tHighCol
 	}
 	else{
 		this.currentColor[2] = Math.round(Math.abs(this.HighColor[2] - this.LowColor[2]) + this.incrementValueB * this.CurrentValue);
-	}	  	  
+	}
     //alert(this.currentColor);
-	
-	  
+
+
 	//set styles
     document.getElementById(this.Id).style.width = this.Width + "px";
     document.getElementById(this.Id).style.height = this.Height + "px";
     document.getElementById(this.Id).style.backgroundColor = "rgb(" +this.currentColor[0].toString()+"," +this.currentColor[1].toString()+ "," + this.currentColor[2].toString() + ")";
 
   }
-  
+
   this.Handle = function(Value, isNew){
 	this.CurrentValue = Value;
     this.Draw();
@@ -321,4 +336,58 @@ function DeclareProximityBar (Name, Id, NetKey, Width, Height, LowColor, HighCol
   //Update To Default
   TempObj.Draw();
 
+}
+function Gauge(tName,tId,tNetKey,tWidth,tHeight,tMin,tMax,tValue,tTitle){
+
+  this.Name = tName;
+  this.Id = tId;
+  this.NetKey = tNetKey;
+
+  //Width Height
+  this.Width = tWidth;
+  this.Height = tHeight;
+
+  this.Min = tMin;
+  this.Max = tMax;
+
+  this.Value = tValue;
+  this.Title = tTitle;
+
+  this.GaugeObj = null;
+
+  this.Handle = function(tValue,isNew){
+    //Handle Method
+    this.Value = tValue;
+
+  }
+  this.FirstDraw = function(){
+    //alert();
+    document.getElementById(this.Id).innerHTML = "<div id="+ this.Name+" class="+ this.Height+"x"+this.Width +"px>Test</div>"
+    var this. GaugeObj = new justgage({
+      id: this.Name,
+      value: 67,
+      min: 0,
+      max: 100,
+      title: "Visitors"});
+
+
+  }
+
+}
+
+function DeclareGauge(Name,Id,NetKey,Width,Height,Min,Max,Value,Title){
+
+  try{
+    if (Name == null || index.hasOwnProperty(Name) || typeof Name != 'string'){
+      //has name already registered
+      throw "Huston We Have A Problem. You Did Something Wrong!";
+    }
+  }catch(err){
+    //throw the Error
+    window.alert(err);
+  }
+
+  var TempObj = new Gauge(Name,Id,NetKey,Width,Height,Min,Max,Value,Title);
+  index[Name] = TempObj;
+  TempObj.FirstDraw();
 }
