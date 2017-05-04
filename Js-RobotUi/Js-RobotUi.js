@@ -7,16 +7,13 @@
 
 //Need to decide how i want to handle the listener
 
-//Import Gauge Script and Raph script
 
-//Raph
-var imported = document.createElement('script');
-imported.src = '/lib/raphael-2.1.4.min';
-document.head.appendChild(imported);
 //Gauge
-var imported = document.createElement('script');
-imported.src = '/lib/justgage.js';
-document.head.appendChild(imported);
+var imp2 = document.createElement('script');
+imp2.type = 'text/javascript';
+imp2.src = '../Lib/gauge.min.js';
+
+document.head.appendChild(imp2);
 
 
 
@@ -353,7 +350,7 @@ function Gauge(tName,tId,tNetKey,tWidth,tHeight,tMin,tMax,tValue,tTitle){
   this.Value = tValue;
   this.Title = tTitle;
 
-  this.GaugeObj = null;
+  this.opts;
 
   this.Handle = function(tValue,isNew){
     //Handle Method
@@ -362,14 +359,32 @@ function Gauge(tName,tId,tNetKey,tWidth,tHeight,tMin,tMax,tValue,tTitle){
   }
   this.FirstDraw = function(){
     //alert();
-    document.getElementById(this.Id).innerHTML = "<div id="+ this.Name+" class="+ this.Height+"x"+this.Width +"px>Test</div>"
-    var this. GaugeObj = new justgage({
-      id: this.Name,
-      value: 67,
-      min: 0,
-      max: 100,
-      title: "Visitors"});
+    document.getElementById(this.Id).innerHTML = "<canvas id="+this.Name+">bob</canvas>"
+    document.getElementById(this.Name).style.position = "Fixed";
+    //document.getElementById(this.Name).style.backgroundColor = "blue";
+    //Handle Options
+  this.opts = {
+  angle: 0.15, // The span of the gauge arc
+  lineWidth: 0.44, // The line thickness
+  radiusScale: 1, // Relative radius
+  pointer: {
+    length: 0.6, // // Relative to gauge radius
+    strokeWidth: 0.035, // The thickness
+    color: '#000000' // Fill color
+  },
+  limitMax: false,     // If false, the max value of the gauge will be updated if value surpass max
+  limitMin: false,     // If true, the min value of the gauge will be fixed unless you set it manually
+  colorStart: '#6FADCF',   // Colors
+  colorStop: '#8FC0DA',    // just experiment with them
+  strokeColor: '#E0E0E0',  // to see which ones work best for you
+  generateGradient: true,
+  highDpiSupport: true     // High resolution support
+};
 
+  //Declare Gauge
+  var temp = document.getElementById(this.Name);
+var gauge = new Gauge(temp);//.setOptions(this.opts);
+ gauge.setOptions(this.opts);
 
   }
 
